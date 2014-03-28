@@ -1,0 +1,17 @@
+{
+  "name": "NodeJS.RealtimeMorpion",
+  "version": "0.0.0",
+  "description": "NodeJS.RealtimeMorpion",
+  "main": "app.js",
+  "author": {
+    "name": "berstt",
+    "email": ""
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "jade": "*",
+    "stylus": "*",
+    "socket.io": "^0.9.16",
+    "ejs": "^0.8.6"
+  }
+}
