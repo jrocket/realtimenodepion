@@ -1,5 +1,5 @@
 ﻿$(function () {
-    var socket = io.connect('http://localhost:1337');
+    var socket = io.connect('http://realtimenodepion.azurewebsites.net/');
 
     var loader = "<img class='loader'  src='/images/ajaxloader.gif' />";
     var gameEnd = false;
