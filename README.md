@@ -1,4 +1,3 @@
-realtimenodepion
-================
+﻿# NodeJS.RealtimeMorpion
 
-tic tac toe game, made with nodejs + express + socket.io
+
