@@ -133,6 +133,7 @@
     })
   
     socket.on('cc_join',function (data) {
+        $('#division').removeClass('hide');
          currentPlayer = data.nextPlayer;
          $(".square").each(function () {
             var coord = $(this).attr("data-coord");
