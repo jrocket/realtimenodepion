@@ -18,8 +18,10 @@
        board.game[res[0]][res[1]]= getNextPlayer();
        var isthereawinner = getWinner();
        if (isthereawinner >-1){
+           console.log("winner = " + isthereawinner);
            score[isthereawinner]++;
        }
+       console.log("player is " + player);
        return isthereawinner;
     }
 
@@ -37,7 +39,14 @@
         }
     
     self.getScore = function (player){
+        if (player===undefined){
+            return score;
+        }
         return score[player];
+    }
+
+    self.setScore = function (data){
+        score = data;
     }
     board.initialize();
 

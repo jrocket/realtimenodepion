@@ -9,10 +9,24 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var ejs = require('ejs');
+var storage = require('node-persist');
 
 var mygame = require('./game');
 
 var app = express();
+//storage
+storage.initSync();
+
+
+var score = storage.getItem('score');
+if (score===undefined){
+    score = mygame.Game.getScore();
+    storage.setItem('score',score);
+}
+else
+{
+    mygame.Game.setScore(score);
+}
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -38,30 +52,33 @@ app.get('/users', user.list);
 var server = http.createServer(app);
 
 var io = require('socket.io').listen(server);
+var connectedUserCount = 0;
 
 
 
 
 io.sockets.on('connection', function (socket, pseudo) {
-  
+    connectedUserCount ++;
     socket.emit('cc_join',{
         board:mygame.Game.getBoard(),
         nextPlayer : mygame.Game.getPlayer(),
         score1 : mygame.Game.getScore(0),
         score2 : mygame.Game.getScore(1)
+
         });
+
+    io.sockets.emit('cc_updateUserCount',{count : connectedUserCount});
 
     // Message sC_Play = someone has played...
     socket.on('sC_Play', function (data) {
-        console.log("play");
         var won =  mygame.Game.play(data);
-        console.log("won");
         if (won != -1) {
              io.sockets.emit('cc_gameWon',{board:mygame.Game.getBoard() , winner : won});
+             storage.setItem('score',mygame.Game.getScore());
         }
         else
         {
-           data.player = (data.player+1)%2;
+           data.player = mygame.Game.getPlayer();
            io.sockets.emit('cc_refresh',{board : mygame.Game.getBoard(), 
            nextPlayer :  mygame.Game.getPlayer(),
            force : false
@@ -75,6 +92,11 @@ io.sockets.on('connection', function (socket, pseudo) {
        socket.emit('cc_reset');
        socket.broadcast.emit('cc_reset');
     }); 
+
+    socket.on('disconnect', function() {
+      connectedUserCount--;
+       io.sockets.emit('cc_updateUserCount',{count : connectedUserCount});
+   });
 });
 
 

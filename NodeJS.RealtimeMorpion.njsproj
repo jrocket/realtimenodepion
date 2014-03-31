@@ -5,6 +5,11 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>ExpressApp7</Name>
     <RootNamespace>ExpressApp7</RootNamespace>
+    <NodeExePath />
+    <NodeExeArguments />
+    <ScriptArguments />
+    <StartWebBrowser>True</StartWebBrowser>
+    <LaunchUrl />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -12,7 +17,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>83aac9f6-1094-40fc-8ce9-2ca0fe8ccbac</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app.js</StartupFile>
+    <StartupFile>server.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -29,12 +34,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app.js" />
     <Compile Include="game.js" />
     <Compile Include="public\views\index.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\user.js" />
+    <Compile Include="server.js" />
     <Content Include="package.json" />
+    <Content Include="persist\batman" />
     <Content Include="public\fairview_regular\fairview_regular-webfont.woff" />
     <Content Include="public\FAIRVI~1\fairview_regular-webfont.woff" />
     <Content Include="public\images\ajaxloader.gif" />
@@ -54,6 +60,7 @@
     <Content Include="views\index.ejs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="persist\" />
     <Folder Include="public\" />
     <Folder Include="public\fairview_regular\" />
     <Folder Include="public\images\" />

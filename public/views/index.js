@@ -1,5 +1,6 @@
 ﻿$(function () {
     var socket = io.connect('http://realtimenodepion.azurewebsites.net/');
+    //var socket = io.connect('http://localhost:1337');
 
     var loader = "<img class='loader'  src='/images/ajaxloader.gif' />";
     var gameEnd = false;
@@ -38,7 +39,6 @@
     }
 
     var incrementScore = function (id) {
-        console.log ("increment score " + id + $(id).html());
         var score = parseInt($(id).html(), 10);
         score++;
         $(id).html(score);
@@ -63,7 +63,8 @@
             $("#gameEnd").html(" Game tied ! you have to reset :(");
         }
         else {
-            if (data.won === 0) {
+           
+            if (data.winner == 0) {
                 incrementScore("#scorJ");
             }
             else {
@@ -95,7 +96,6 @@
         currentPlayer =0;
         
         hideOrShow();
-        console.log("reset -> currentPlayer = " + currentPlayer);
 
     });
 
@@ -152,14 +152,18 @@
         for (var i = 0; i < data.score2; i++) {
             incrementScore("#scorO");
         }
+        hideOrShow();
+       
    
     });
-    socket.on('cc_updateUsersOnlineCount', function (data) {
-         // Add the message to the page.
-        var label = data + " user(s) connected";
+
+    socket.on('cc_updateUserCount', function (data) {
+   
+               // Add the message to the page.
+        var label = data.count + " user(s) connected";
         $('#usersCount').text(label);
         });
-   
+    
 
 
   
